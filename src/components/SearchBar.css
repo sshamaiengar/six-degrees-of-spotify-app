@@ -1,0 +1,20 @@
+.suggestion {
+    position:relative;
+    min-height: 3em;
+    width: 100%;
+}
+
+.suggestionImage {
+    position:absolute;
+    right:5px;
+    width: 3em;
+    height:3em;
+}
+
+body {
+    font-family: "SF Pro Text", "Avenir Next", Helvetica, sans-serif !important;
+}
+
+input {
+
+}
