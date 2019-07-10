@@ -1,23 +1,37 @@
 html {
-  background: #191414;
-  /*text-align: center;*/
+    background: #191414;
+    /*text-align: center;*/
 }
 
 h1, h2, h3 {
-  color: #1db954;
+    color: #1db954;
 }
 
 #title {
-  font-weight: 300;
+    font-weight: 300;
 }
 
 #nav {
-  text-align: center;
+    text-align: center;
 }
 
 .searchContainer {
-  position: absolute;
-  width: 25%;
-  top:50%;
-  transform: translateY(-50%);
+    position: relative;
+    margin-top: 5%;
+    height: 100%;
+}
+
+.searchBar {
+    position: absolute;
+    width: 25%;
+    top: 15%;
+    transform: translateY(-50%);
+}
+
+.searchBar hr {
+    position: absolute;
+    width: 20%;
+    bottom: 30%;
+    border:0;
+    border-top: 1px solid #1db954;
 }

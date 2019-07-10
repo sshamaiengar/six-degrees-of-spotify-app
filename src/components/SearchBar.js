@@ -58,7 +58,6 @@ function getSuggestionValue(suggestion) {
 }
 
 const useStyles = makeStyles(theme => {
-    console.log(theme);
     return {
         input: {
             color: 'white',
@@ -101,7 +100,7 @@ const useStyles = makeStyles(theme => {
     }
 });
 
-export default function SearchBar() {
+export default function SearchBar(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [state, setState] = React.useState({
@@ -159,6 +158,7 @@ export default function SearchBar() {
 
     const onSuggestionSelected = (event, other) => {
         artistIdElement.current.value = other.suggestion.id;
+        props.setArtistId(other.suggestion.id);
     };
 
     const autosuggestProps = {
