@@ -1,0 +1,9 @@
+
+.card {
+    margin: 4%;
+    min-width: 300px;
+    max-width: 30%;
+    z-index: 0;
+    flex-grow: 1;
+
+}

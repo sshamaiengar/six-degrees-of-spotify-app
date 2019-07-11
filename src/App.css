@@ -19,6 +19,7 @@ h1, h2, h3 {
     position: relative;
     margin-top: 5%;
     height: 100%;
+    z-index: 999;
 }
 
 .searchBar {
@@ -34,4 +35,36 @@ h1, h2, h3 {
     bottom: 30%;
     border:0;
     border-top: 1px solid #1db954;
+}
+
+.connectionContainer {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 5%;
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: baseline;
+    width: 100%;
+    height:60%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.connectionContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollContainer {
+    display: flex;
+    flex-flow: row nowrap;
+    /*height:100%;*/
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+    align-items: baseline;
+    margin-left: 0;
+    margin-right: 0;
+    flex-grow: 2;
 }

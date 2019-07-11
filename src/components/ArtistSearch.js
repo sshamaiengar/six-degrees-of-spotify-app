@@ -209,7 +209,7 @@ export default function ArtistSearch(props){
     return (
         <ThemeProvider theme={mainTheme}>
         <AsyncSelect cacheOptions loadOptions={loadOptions} getOptionLabel={option => option.name}
-            getOptionValue={option => option.id} name={props.name} onChange={props.setArtist}
+            getOptionValue={option => option.id} name={props.name} onChange={(value) => {props.setArtist(value);}}
             // theme={theme => ({
             //      ...theme,
             //      borderRadius: 0,
@@ -228,6 +228,7 @@ export default function ArtistSearch(props){
                 },
                 placeholder: 'Search an artist',
             }}
+             style={{zIndex:1000}}
             components={components}
                      noOptionsMessage={() => ('Type to load options')}
         />
