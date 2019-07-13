@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import ArtistSearch from './components/ArtistSearch';
 import Search from '@material-ui/icons/Search';
@@ -16,9 +16,15 @@ const apiUrl = process.env.SIX_DEGREES_API_URL || "http://localhost:5000";
 function App() {
     const [artist1, setArtist1] = useState({});
     const [artist2, setArtist2] = useState({});
+    const [isLoading, setLoading] = useState(false);
     const disableSearch = !artist1.id || !artist2.id;
 
     const [connectionData, setConnectionData] = useState([]);
+
+    // clear data if new artists selected
+    useEffect(() => {
+        setConnectionData([]);
+    }, [artist1, artist2]);
 
     const getConnection = () => {
         if (artist1.id === "" || artist2.id === ""){
@@ -27,7 +33,7 @@ function App() {
 
         const baseUrl = apiUrl + "/api/connect/";
         const url = baseUrl + artist1.id + "/" + artist2.id;
-
+        setLoading(true);
         fetch(url, {
             method: 'GET',
             mode: 'cors',
@@ -35,8 +41,10 @@ function App() {
             .then(res => res.json())
             .then((res) => {
                 setConnectionData(res);
+                setLoading(false);
             }, (error) => {
                 console.log("Error fetching connection data: " + error);
+                setLoading(false);
             });
     };
 
@@ -76,13 +84,21 @@ function App() {
 
 
                 </div>
-                {connectionData.length > 0 ? <div className="connectionContainer">
-                    <ArtistCard artist={connectionData[0]}/>
-                    { middleArtists.length > 0 ? <div className="scrollContainer">
+                {connectionData.length > 0 || isLoading ? <div className="connectionContainer">
+                    <ArtistCard artist={artist1}/>
+                    { middleArtists.length > 0 && !isLoading ? <div className="scrollContainer">
                         {middleArtists.map((artist, i) => <ArtistCard artist={artist} key={"card" + i}/>)}
 
                     </div> : ""}
-                    {connectionData.length > 1 ? <ArtistCard artist={connectionData[connectionData.length-1]}/> : ""}
+                    {isLoading && <div className="loadingIndicator">
+                        <div className="lds-ellipsis">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>}
+                    {connectionData.length > 1 || isLoading ? <ArtistCard artist={artist2}/> : ""}
                 </div> : ""}
             </ThemeProvider>
         </StylesProvider>

@@ -1,9 +1,13 @@
 
 .card {
-    margin: 4%;
-    min-width: 300px;
+    margin: 3%;
+    min-width: 320px;
     max-width: 30%;
     z-index: 0;
     flex-grow: 1;
 
+}
+
+img {
+    object-fit: contain;
 }

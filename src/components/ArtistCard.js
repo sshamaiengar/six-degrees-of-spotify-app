@@ -36,19 +36,19 @@ export default function ArtistCard(props) {
             <div className="cardSides">
                 <div className="cardFront">
                     <CardActionArea>
-                        <CardMedia
-                            component="img"
-                            alt={props.artist.name}
-                            height="100%"
-                            image={props.artist.images.length > 1 ? props.artist.images[0].url :
-                                props.artist.images.length > 0 ? props.artist.images[0].url : "https://via.placeholder.com/300/000000/000000Text="}
-                            title={props.artist.name}
-                        />
                         <CardContent>
                             <Typography variant="h5" component="h2" color='inherit'>
                                 {props.artist.name}
                             </Typography>
                         </CardContent>
+                        <CardMedia
+                            component="img"
+                            alt={props.artist.name}
+                            // height="100%"
+                            image={props.artist.images.length > 1 ? props.artist.images[0].url :
+                                props.artist.images.length > 0 ? props.artist.images[0].url : "https://via.placeholder.com/300/000000/000000Text="}
+                            title={props.artist.name}
+                        />
                     </CardActionArea>
                 </div>
                 <div className="cardBack">
