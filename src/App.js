@@ -84,6 +84,13 @@ function App() {
 
 
                 </div>
+                {connectionData.length === 0 && !isLoading && <div className="description">
+                    <h2 style={{color: 'white', fontWeight: 300}}>Enter two artists.<br/>
+                        Hit <Search style={{display:"inline-block", marginBottom: '-0.2em'}}></Search> to find a minimal set of other artists that connect them,<br/>
+                        based on Spotify's related artists data.
+                    </h2>
+
+                </div>}
                 {connectionData.length > 0 || isLoading ? <div className="connectionContainer">
                     <ArtistCard artist={artist1}/>
                     { middleArtists.length > 0 && !isLoading ? <div className="scrollContainer">
