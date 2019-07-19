@@ -72,6 +72,10 @@ export default function ArtistCard(props) {
                     <Typography component="p" color='inherit'>
                         Genres: {props.artist.genres.join(", ")}
                     </Typography>
+                    <div className="artistWidget">
+                        <iframe src={`https://open.spotify.com/embed/artist/${props.artist.id}`} width="250" height="330"
+                                frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    </div>
                 </CardContent>
             </Collapse>
         </Card>
