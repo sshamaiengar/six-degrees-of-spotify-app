@@ -14,7 +14,9 @@ h1, h2, h3 {
 }
 
 #nav {
+    position: relative;
     text-align: center;
+    z-index: 1000;
 }
 
 .searchContainer {
@@ -48,11 +50,11 @@ h1, h2, h3 {
 }
 
 .connectionContainer {
+    z-index: 0;
     position: absolute;
     /*top: 50%;*/
     /*transform: translateY(-50%);*/
-    padding: 3%;
-    padding-top: 15%;
+    padding: 15% 3% 3% 3%;
     display:flex;
     flex-wrap: nowrap;
     justify-content: center;
@@ -109,7 +111,7 @@ h1, h2, h3 {
     width: 1.5em;
     height: 1.5em;
     border-radius: 50%;
-    background: #fcf;
+    background: #fff;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .lds-ellipsis div:nth-child(1) {

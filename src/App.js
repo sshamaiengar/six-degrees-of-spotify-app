@@ -6,14 +6,15 @@ import Search from '@material-ui/icons/Search';
 import {IconButton} from '@material-ui/core';
 import {StylesProvider} from "@material-ui/styles";
 import { jsx, css } from "@emotion/core";
-import $ from 'jquery';
 import ArtistCard from "./components/ArtistCard";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import theme from './theme';
 
 const apiUrl = process.env.SIX_DEGREES_API_URL || "http://localhost:5000";
 
-function App() {
+//
+function App({ match: { params}}) {
+    const hasURLParams = Object.entries(params).length > 0;
     const [artist1, setArtist1] = useState({});
     const [artist2, setArtist2] = useState({});
     const [isLoading, setLoading] = useState(false);
@@ -26,8 +27,38 @@ function App() {
         setConnectionData([]);
     }, [artist1, artist2]);
 
+    // set artists if in parameters
+    useEffect(() => {
+        // if using params
+        if (hasURLParams) {
+            const baseUrl = apiUrl + "/api/artist/";
+            fetch(baseUrl + params.artist1id, {
+                method: 'GET',
+                mode: 'cors',
+            })
+                .then(res => res.json())
+                .then((res) => {
+                    setArtist1(res);
+                }, (error) => {
+                    console.log("Error fetching artist data: " + error);
+                });
+
+            fetch(baseUrl + params.artist2id, {
+                method: 'GET',
+                mode: 'cors',
+            })
+                .then(res => res.json())
+                .then((res) => {
+                    setArtist2(res);
+                }, (error) => {
+                    console.log("Error fetching artist data: " + error);
+                });
+        }
+    }, []);
+
+
     const getConnection = () => {
-        if (artist1.id === "" || artist2.id === ""){
+        if (Object.entries(artist1).length === 0 || Object.entries(artist2).length === 0){
             return;
         }
 
@@ -48,14 +79,21 @@ function App() {
             });
     };
 
+    // after artists have loaded on param route, get connection
+    useEffect(() => {
+        if (hasURLParams){
+            getConnection();
+        }
+    }, [artist1, artist2]);
+
     const middleArtists = connectionData.slice(1,connectionData.length-1);
     return (
         <StylesProvider injectFirst>
             <ThemeProvider theme={theme}>
                 <div id="nav">
-                    <h1 id="title">Six Degrees of Spotify</h1>
+                    <a href="/" style={{textDecoration: "none"}}><h1 id="title">Six Degrees of Spotify</h1></a>
                 </div>
-                <div className="searchContainer">
+                {!hasURLParams && <div className="searchContainer">
                     <div className="searchBar" style={{left: '15%'}}>
                         <ArtistSearch name="artist1id" setArtist={setArtist1}/>
                         <hr style={{right:'-25%'}}/>
@@ -78,13 +116,12 @@ function App() {
                     `}>
                         <Search css={css`
                             font-size: 6rem;
-                            
                         `}/>
                     </IconButton>
 
 
-                </div>
-                {connectionData.length === 0 && !isLoading && <div className="description">
+                </div>}
+                {!hasURLParams && connectionData.length === 0 && !isLoading && <div className="description">
                     <h2 style={{color: 'white', fontWeight: 300}}>Enter two artists.<br/>
                         Hit <Search style={{display:"inline-block", marginBottom: '-0.2em'}}></Search> to find a minimal set of other artists that connect them,<br/>
                         based on Spotify's related artists data.
