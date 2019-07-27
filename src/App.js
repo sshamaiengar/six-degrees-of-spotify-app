@@ -16,11 +16,19 @@ import ArtistCard from "./components/ArtistCard";
 import theme from './theme';
 import './App.css';
 import { copyToClipBoard} from "./components/util";
+import SnackbarContent from "@material-ui/core/SnackbarContent";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
 
 const apiUrl = process.env.SIX_DEGREES_API_URL || "http://localhost:5000";
 
-//
+const styles = theme => ({
+    root: {
+        backgroundColor: 'black',
+        color: 'white'
+    }
+});
+
 function App({ match: { params}}) {
     const hasURLParams = Object.entries(params).length > 0;
     const [artist1, setArtist1] = useState({});
@@ -30,6 +38,9 @@ function App({ match: { params}}) {
     const [isOpenSnackBar, setOpenSnackBar] = useState(false);
 
     const [connectionData, setConnectionData] = useState([]);
+
+    const snackBarStyles = makeStyles(styles);
+    const snackBarClasses = snackBarStyles();
 
     // clear data if new artists selected
     useEffect(() => {
@@ -135,8 +146,13 @@ function App({ match: { params}}) {
                         autoHideDuration={3000}
                         onClose={() => setOpenSnackBar(false)}
                         TransitionComponent={Slide}
-                        message={<span id="message-id">Connection permalink copied to clipboard!</span>}
-                    />
+                    >
+                        <SnackbarContent
+                            message={<span id="message-id">Connection permalink copied to clipboard!</span>}
+                            className={snackBarClasses.root}
+                        >
+                        </SnackbarContent>
+                    </Snackbar>
                 </div>
                 {!hasURLParams && <div className="searchContainer">
                     <div className="searchBar" style={{left: '15%'}}>

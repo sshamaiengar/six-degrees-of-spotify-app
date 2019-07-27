@@ -20,7 +20,7 @@ h1, h2, h3 {
     z-index: 1000;
     display:flex;
     justify-content: space-between;
-    padding: 2%;
+    padding: 2% 2% 0 2%;
 }
 
 #infoContent {
@@ -34,7 +34,7 @@ h1, h2, h3 {
 
 .searchContainer {
     position: relative;
-    margin-top: 5%;
+    margin-top: 4%;
     height: 15%;
     z-index: 999;
 }

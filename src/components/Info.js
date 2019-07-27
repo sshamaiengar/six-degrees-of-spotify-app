@@ -40,7 +40,7 @@ export default function Info(props) {
                     <hr/>
                     <ul style={{listStyle: 'none', paddingLeft: 0}}>
                         <li><h3>Number of connections searched: </h3></li>
-                        <li><h3>Longest path: </h3></li>
+                        <li><h3>Longest connection: </h3></li>
                         <li><h3>Most searched artist: </h3></li>
                         <li><h3>Most searched connection: </h3></li>
                         <li><h3>Empty connections found: </h3></li>
