@@ -1,14 +1,22 @@
 /** @jsx jsx */
 import React, {useEffect, useState} from 'react';
-import './App.css';
-import ArtistSearch from './components/ArtistSearch';
 import Search from '@material-ui/icons/Search';
+import Share from '@material-ui/icons/Share';
+import Info from '@material-ui/icons/Info';
 import {IconButton} from '@material-ui/core';
 import {StylesProvider} from "@material-ui/styles";
 import { jsx, css } from "@emotion/core";
-import ArtistCard from "./components/ArtistCard";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
+import { Link } from 'react-router-dom';
+import Snackbar from "@material-ui/core/Snackbar";
+import Slide from "@material-ui/core/Slide";
+
+import ArtistSearch from './components/ArtistSearch';
+import ArtistCard from "./components/ArtistCard";
 import theme from './theme';
+import './App.css';
+import { copyToClipBoard} from "./components/util";
+
 
 const apiUrl = process.env.SIX_DEGREES_API_URL || "http://localhost:5000";
 
@@ -19,6 +27,7 @@ function App({ match: { params}}) {
     const [artist2, setArtist2] = useState({});
     const [isLoading, setLoading] = useState(false);
     const disableSearch = !artist1.id || !artist2.id;
+    const [isOpenSnackBar, setOpenSnackBar] = useState(false);
 
     const [connectionData, setConnectionData] = useState([]);
 
@@ -87,11 +96,47 @@ function App({ match: { params}}) {
     }, [artist1, artist2]);
 
     const middleArtists = connectionData.slice(1,connectionData.length-1);
+
+    const InfoLink = React.forwardRef((props, ref) => <Link innerRef={ref} {...props} />);
+
     return (
         <StylesProvider injectFirst>
             <ThemeProvider theme={theme}>
                 <div id="nav">
-                    <a href="/" style={{textDecoration: "none"}}><h1 id="title">Six Degrees of Spotify</h1></a>
+                    <IconButton href="" component={InfoLink} to={"/info"}>
+                        <Info css={css`font-size:3rem; color: #1db954;`}/>
+                    </IconButton>
+                    {/*<Link to="/info" style={{textDecoration: "none"}}><Info css={css`font-size:3rem; color: #1db954;`}/></Link>*/}
+                    <Link to="/"
+                          onClick={() => {
+                              setArtist1({});
+                              setArtist2({});
+                              setConnectionData([]);
+                          }}
+                          style={{textDecoration: "none"}}
+                    ><h1 id="title">Six Degrees of Spotify</h1></Link>
+                    <IconButton href="" disabled={connectionData.length === 0} css={css`
+                        color: #1db954;
+                        &:disabled {
+                            color: #6d6d6d;
+                        }`}
+                        onClick={() => {
+                            copyToClipBoard(`${window.location.href}${artist1.id}/${artist2.id}`);
+                            setOpenSnackBar(true);
+                        }}
+                    >
+                        <Share css={css`
+                            font-size:3rem;
+                        `}/>
+                    </IconButton>
+                    <Snackbar
+                        open={isOpenSnackBar}
+                        anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+                        autoHideDuration={3000}
+                        onClose={() => setOpenSnackBar(false)}
+                        TransitionComponent={Slide}
+                        message={<span id="message-id">Connection permalink copied to clipboard!</span>}
+                    />
                 </div>
                 {!hasURLParams && <div className="searchContainer">
                     <div className="searchBar" style={{left: '15%'}}>
