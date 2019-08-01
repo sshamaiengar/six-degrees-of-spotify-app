@@ -1,8 +1,7 @@
 
 .card {
     margin: 3%;
-    min-width: 320px;
-    max-width: 30%;
+    min-width: 280px;
     z-index: 0;
     flex-grow: 1;
 

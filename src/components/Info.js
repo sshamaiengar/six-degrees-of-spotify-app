@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import ThemeProvider from "@material-ui/styles/ThemeProvider/ThemeProvider";
 import {Link} from "react-router-dom";
@@ -8,8 +8,43 @@ import { css } from '@emotion/core';
 import theme from "../theme";
 import '../App.css';
 
+const apiUrl = process.env.SIX_DEGREES_API_URL || "http://localhost:5000";
 
 export default function Info(props) {
+    const [stats, setStats] = useState({});
+    useEffect(() => {
+        const url = apiUrl + "/api/stats";
+        fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+        })
+            .then(res => res.json())
+            .then((res) => {
+                setStats(res)
+            }, (error) => {
+                console.log("Error fetching stats: " + error);
+            });
+    }, []);
+
+    const outputConnectionLink = (connection) => {
+        return (
+            <Link to={"/" + connection.url}>{connection.artists[0].name} - {connection.artists[connection.artists.length - 1].name}</Link>
+        );
+    };
+
+    /* intersperse: Return an array with the separator interspersed between
+     * each element of the input array.
+     */
+    const intersperse = (arr, sep) => {
+        if (arr.length === 0) {
+            return [];
+        }
+
+        return arr.slice(1).reduce(function(xs, x, i) {
+            return xs.concat([sep, x]);
+        }, [arr[0]]);
+    };
+
     return (
         <StylesProvider injectFirst>
             <ThemeProvider theme={theme}>
@@ -38,13 +73,24 @@ export default function Info(props) {
                     <br/>
                     <h2>Statistics</h2>
                     <hr/>
-                    <ul style={{listStyle: 'none', paddingLeft: 0}}>
-                        <li><h3>Number of connections searched: </h3></li>
-                        <li><h3>Longest connection: </h3></li>
-                        <li><h3>Most searched artist: </h3></li>
-                        <li><h3>Most searched connection: </h3></li>
-                        <li><h3>Empty connections found: </h3></li>
-                    </ul>
+                    {Object.entries(stats).length && <ul style={{listStyle: 'none', paddingLeft: 0}}>
+                        <li><h3><strong>Connections searched:</strong> {stats.connections_searched}</h3></li>
+                        <li><h3><strong>Max degrees of separation:</strong> {stats.max_degrees_path.degrees} (
+                            {outputConnectionLink(stats.max_degrees_path)}
+                            )</h3></li>
+                        <li><h3><strong>Average degrees of separation:</strong> {stats.mean_degrees}</h3></li>
+                        <li><h3><strong>Most searched artists: </strong>
+                            {stats.top_artists.map((artist, i) => (artist.name + (i < stats.top_artists.length - 1 ? ", " : "")) )}
+                        </h3></li>
+                        <li><h3><strong>Most searched connections: </strong>
+                            {intersperse(stats.top_connections.map((connection) => (outputConnectionLink(connection))), ", ")}
+                        </h3></li>
+                        <li><h3><strong>Empty connections found: </strong>
+                            {stats.nonexistent_connections.length ?
+                                intersperse(stats.nonexistent_connections.map((connection) => (outputConnectionLink(connection))), ", ")
+                            : "None"}
+                        </h3></li>
+                    </ul>}
                 </div>
             </ThemeProvider>
         </StylesProvider>
