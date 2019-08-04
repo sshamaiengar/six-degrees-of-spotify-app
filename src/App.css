@@ -1,8 +1,21 @@
 html, body, #root {
-    background: #191414;
+    /*background: #191414;*/
+    background: rgb(25,20,20);
+    background: -moz-linear-gradient(0deg, rgba(25,20,20,1) 0%, rgba(21,50,67,1) 73%, rgba(0,212,255,1) 153243%) fixed;
+    background: -webkit-linear-gradient(0deg, rgba(25,20,20,1) 0%, rgba(21,50,67,1) 73%, rgba(0,212,255,1) 153243%) fixed;
+    background: linear-gradient(0deg, rgba(25,20,20,1) 0%, rgba(21,50,67,1) 73%, rgba(0,212,255,1) 153243%) fixed;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#191414",endColorstr="#00d4ff",GradientType=1);
     width:100%;
     height:100%;
+    overscroll-behavior: none;
+    /*overflow: hidden;*/
     /*text-align: center;*/
+}
+
+body {
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 h1, h2, h3 {
@@ -89,7 +102,7 @@ h1, h2, h3 {
     display: flex;
     z-index: 1;
     flex-flow: row nowrap;
-    height:100%;
+    height: auto;
     overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
     justify-content: start;
@@ -98,18 +111,6 @@ h1, h2, h3 {
     margin-right: 2%;
     flex-grow: 3;
     box-sizing: border-box;
-    background: #191414 no-repeat;
-    background-image:
-            -webkit-radial-gradient(0 50%, farthest-side, rgba(255,255,255,0.2), rgba(255,255,255,0)),
-            -webkit-radial-gradient(100% 50%, farthest-side, rgba(255,255,255,0.2), rgba(255,255,255,0));
-    background-image:
-            -o-radial-gradient(0 50%, farthest-side, rgba(255,255,255,0.2), rgba(255,255,255,0)),
-            -o-radial-gradient(100% 50%, farthest-side, rgba(255,255,255,0.2), rgba(255,255,255,0));
-    background-image:
-            radial-gradient(farthest-side at 0 50%, rgba(255,255,255,0.2), rgba(255,255,255,0)),
-            radial-gradient(farthest-side at 100% 50%, rgba(255,255,255,0.2), rgba(255,255,255,0));
-    background-position: 0 0, 100% 0;
-    background-size: 1rem 100%;
 }
 
 .scrollContainer .card:not(:last-child) {
@@ -136,25 +137,6 @@ h1, h2, h3 {
     -ms-flex: 1 0 auto;
     flex: 1 0 auto;
     height:100%;
-}
-
-/*.scrollContainer::after {*/
-/*    left:calc(100%);*/
-/*}*/
-
-.scrollContainer::before {
-    max-width: 2rem;
-    background: -webkit-gradient(linear,left top, right top,from(#191414),color-stop(50%, #191414),to(rgba(25,20,20,0)));
-    background: -webkit-linear-gradient(left,#191414,#191414 50%,rgba(25,20,20,0));
-    background: -o-linear-gradient(left,#191414,#191414 50%,rgba(25,20,20,0));
-    background: linear-gradient(to right,#191414,#191414 50%,rgba(25,20,20,0));
-}
-
-.scrollContainer::after {
-    background: -webkit-gradient(linear,left top, right top,from(rgba(25,20,20,0)),color-stop(50%, #191414),to(#191414));
-    background: -webkit-linear-gradient(left,rgba(25,20,20,0),#191414 50%,#191414);
-    background: -o-linear-gradient(left,rgba(25,20,20,0),#191414 50%,#191414);
-    background: linear-gradient(to right,rgba(25,20,20,0),#191414 50%,#191414);
 }
 
 .loadingIndicator {

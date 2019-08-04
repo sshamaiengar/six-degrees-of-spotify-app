@@ -48,7 +48,7 @@ export default function ArtistCard(props) {
 
     return (
 
-        <Card className={classes.card + " card"}>
+        <Card className={classes.card + " card"} elevation={8}>
             <CardActionArea onClick={handleExpandClick}>
                 <CardContent>
                     <Typography variant="h5" component="h2" color='inherit'>

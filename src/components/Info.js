@@ -78,7 +78,7 @@ export default function Info(props) {
                         <li><h3><strong>Max degrees of separation:</strong> {stats.max_degrees_path.degrees} (
                             {outputConnectionLink(stats.max_degrees_path)}
                             )</h3></li>
-                        <li><h3><strong>Average degrees of separation:</strong> {stats.mean_degrees}</h3></li>
+                        <li><h3><strong>Average degrees of separation:</strong> {stats.mean_degrees.toFixed(1)}</h3></li>
                         <li><h3><strong>Most searched artists: </strong>
                             {stats.top_artists.map((artist, i) => (artist.name + (i < stats.top_artists.length - 1 ? ", " : "")) )}
                         </h3></li>
