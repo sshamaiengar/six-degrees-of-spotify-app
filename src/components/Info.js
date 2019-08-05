@@ -71,9 +71,9 @@ export default function Info(props) {
                     <p>This is made possible by the <a href="https://developer.spotify.com/documentation/web-api/" target="_blank" rel="noopener noreferrer">Spotify Web API</a>.</p>
                     <p>Developed by <a href="https://github.com/sshamaiengar" target="_blank" rel="noopener noreferrer">Stephen Shamaiengar.</a></p>
                     <br/>
-                    <h2>Statistics</h2>
+                    {Object.entries(stats).length > 0 && <><h2>Statistics</h2>
                     <hr/>
-                    {Object.entries(stats).length && <ul style={{listStyle: 'none', paddingLeft: 0}}>
+                    <ul style={{listStyle: 'none', paddingLeft: 0}}>
                         <li><h3><strong>Connections searched:</strong> {stats.connections_searched}</h3></li>
                         <li><h3><strong>Max degrees of separation:</strong> {stats.max_degrees_path.degrees} (
                             {outputConnectionLink(stats.max_degrees_path)}
@@ -90,7 +90,7 @@ export default function Info(props) {
                                 intersperse(stats.nonexistent_connections.map((connection) => (outputConnectionLink(connection))), ", ")
                             : "None"}
                         </h3></li>
-                    </ul>}
+                    </ul></>}
                 </div>
             </ThemeProvider>
         </StylesProvider>

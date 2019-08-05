@@ -183,9 +183,10 @@ function App({ match: { params}}) {
 
                 </div>}
                 {!hasURLParams && connectionData.length === 0 && !isLoading && <div className="description">
-                    <h2 style={{color: 'white', fontWeight: 300}}>Enter two artists.<br/>
+                    <h2 style={{color: 'white', fontWeight: 300}}>Enter two artists.<br/><br/>
                         Hit <Search style={{display:"inline-block", marginBottom: '-0.2em'}}></Search> to find a minimal set of other artists that connect them,<br/>
-                        based on Spotify's related artists data.
+                        based on Spotify's related artists data. (This could take a while.)<br/><br/>
+                        Click on an artist's card to see more information about them and to play their music.
                     </h2>
 
                 </div>}
