@@ -19,9 +19,6 @@ import { copyToClipBoard} from "./components/util";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
-
-const apiUrl = process.env.SIX_DEGREES_API_URL || "http://localhost:5000";
-
 const styles = theme => ({
     root: {
         backgroundColor: 'black',
@@ -51,7 +48,7 @@ function App({ match: { params}}) {
     useEffect(() => {
         // if using params
         if (hasURLParams) {
-            const baseUrl = apiUrl + "/api/artist/";
+            const baseUrl = "/api/artist/";
             fetch(baseUrl + params.artist1id, {
                 method: 'GET',
                 mode: 'cors',
@@ -82,7 +79,7 @@ function App({ match: { params}}) {
             return;
         }
 
-        const baseUrl = apiUrl + "/api/connect/";
+        const baseUrl = "/api/connect/";
         const url = baseUrl + artist1.id + "/" + artist2.id;
         setLoading(true);
         fetch(url, {

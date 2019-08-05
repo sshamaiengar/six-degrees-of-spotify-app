@@ -10,7 +10,6 @@ import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 import './SearchBar.css';
 
-const apiUrl = process.env.SIX_DEGREES_API_URL || "http://localhost:5000";
 
 function renderInputComponent(inputProps) {
     const { classes, inputRef = () => {}, ref, ...other } = inputProps;
@@ -120,7 +119,7 @@ export default function SearchBar(props) {
         let count = 0;
 
         // get spotify search results for this value
-        const baseUrl = apiUrl + "/api/search/";
+        const baseUrl = "/api/search/";
         const url = baseUrl + encodeURIComponent(value);
 
         fetch(url, {

@@ -8,12 +8,10 @@ import { css } from '@emotion/core';
 import theme from "../theme";
 import '../App.css';
 
-const apiUrl = process.env.SIX_DEGREES_API_URL || "http://localhost:5000";
-
 export default function Info(props) {
     const [stats, setStats] = useState({});
     useEffect(() => {
-        const url = apiUrl + "/api/stats";
+        const url = "/api/stats";
         fetch(url, {
             method: 'GET',
             mode: 'cors',
@@ -61,7 +59,7 @@ export default function Info(props) {
                 <div id="infoContent">
                     <h2>About</h2>
                     <hr/>
-                    <p> Inspired by the idea of <a href="https://en.wikipedia.org/wiki/Six_degrees_of_separation" target="_blank" rel="noopener noreferrer">six degrees of separation</a>,
+                    <p> Inspired by the idea of <a href="https://en.wikipedia.org/wiki/of_separation" target="_blank" rel="noopener noreferrer">six degrees of separation</a>,
                         this app attempts to find a shortest chain of artists connecting any two artists on Spotify.
                         Two artists <i>A</i> and <i>B</i> are considered connected if <i>A</i> is one of <i>B</i>'s related artists, or <i>B</i> is one of <i>A</i>'s related artists.
                         Related artists are shown under <strong>Fans Also Like</strong> in the Spotify Apps.

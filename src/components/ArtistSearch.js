@@ -12,8 +12,6 @@ import mainTheme from '../theme';
 import { ThemeProvider} from "@material-ui/styles";
 import { jsx } from "@emotion/core";
 
-const apiUrl = process.env.SIX_DEGREES_API_URL || "http://localhost:5000";
-
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
@@ -162,7 +160,7 @@ const loadOptions = (value) => {
     let count = 0;
 
     // get spotify search results for this value
-    const baseUrl = apiUrl + "/api/search/";
+    const baseUrl = "/api/search/";
     const url = baseUrl + encodeURIComponent(value);
 
     return fetch(url, {
