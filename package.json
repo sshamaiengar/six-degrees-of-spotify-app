@@ -10,7 +10,7 @@
     "autosuggest-highlight": "^3.1.1",
     "http-proxy-middleware": "^0.19.1",
     "jquery": "^3.4.1",
-    "lodash": ">=4.17.13",
+    "lodash": ">=4.17.21",
     "lodash.template": ">=4.5.0",
     "react": "^16.8.6",
     "react-autosuggest": "^9.4.3",
